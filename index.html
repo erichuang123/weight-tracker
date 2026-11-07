@@ -3,582 +3,289 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>減脂計畫與飲食體重紀錄儀表板</title>
-    <!-- Tailwind CSS -->
+    <title>Eric的減脂與體重追蹤儀表板</title>
+    <!-- 引入 Tailwind CSS 進行快速美化 -->
     <script src="https://cdn.tailwindcss.com"></script>
-    <!-- Chart.js -->
+    <!-- 引入 Chart.js 繪製圖表 -->
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <!-- FontAwesome Icons -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <!-- Google Font Inter -->
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
-    <script>
-        tailwind.config = {
-            theme: {
-                extend: {
-                    colors: {
-                        brand: {
-                            50: '#f0fdf4',
-                            100: '#dcfce7',
-                            500: '#22c55e',
-                            600: '#16a34a',
-                            700: '#15803d',
-                        },
-                        accent: {
-                            500: '#3b82f6',
-                            600: '#2563eb',
-                        }
-                    },
-                    fontFamily: {
-                        sans: ['Inter', 'sans-serif'],
-                    }
-                }
-            }
-        }
-    </script>
+    <!-- 引入 FontAwesome 圖示 -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
     <style>
-        body {
-            font-family: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-            background-color: #f8fafc;
+        body { 
+            background-color: #f1f5f9; 
+            font-family: 'Segoe UI', 'PingFang TC', 'Microsoft JhengHei', sans-serif; 
         }
-        .glass-card {
-            background: rgba(255, 255, 255, 0.95);
-            backdrop-filter: blur(10px);
-            border: 1px solid rgba(226, 232, 240, 0.8);
+        .glass-card { 
+            background: rgba(255, 255, 255, 0.95); 
+            border-radius: 1rem; 
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.05), 0 4px 6px -2px rgba(0, 0, 0, 0.025); 
+            transition: transform 0.2s ease-in-out;
         }
-        .gradient-header {
-            background: linear-gradient(135deg, #0f172a 0%, #1e293b 50%, #1e3a8a 100%);
-        }
-        /* Custom scrollbar for table */
-        ::-webkit-scrollbar {
-            width: 6px;
-            height: 6px;
-        }
-        ::-webkit-scrollbar-track {
-            background: #f1f5f9;
-        }
-        ::-webkit-scrollbar-thumb {
-            background: #cbd5e1;
-            border-radius: 4px;
-        }
-        ::-webkit-scrollbar-thumb:hover {
-            background: #94a3b8;
+        .glass-card:hover {
+            transform: translateY(-2px);
         }
     </style>
 </head>
-<body class="text-slate-800 antialiased min-h-screen flex flex-col justify-between">
+<body class="text-gray-800 antialiased p-4 md:p-8">
+    <div class="max-w-7xl mx-auto space-y-6">
+        
+        <!-- 頂部標題區塊 -->
+        <header class="flex flex-col md:flex-row justify-between items-center glass-card p-6 border-l-4 border-teal-500">
+            <div>
+                <h1 class="text-3xl font-bold text-slate-800">
+                    <i class="fa-solid fa-person-running text-teal-500 mr-3"></i>Eric 的減脂進度儀表板
+                </h1>
+                <p class="text-slate-500 mt-2">終極目標：12/12 達成 69.0 kg，精實腿部線條！</p>
+            </div>
+            <div class="mt-4 md:mt-0 text-right bg-slate-50 p-3 rounded-lg border border-slate-100">
+                <p class="text-sm text-slate-500">系統最後更新日期</p>
+                <p class="text-lg font-bold text-teal-600"><i class="fa-regular fa-clock mr-1"></i> 2026 / 11 / 07</p>
+            </div>
+        </header>
 
-    <!-- Header Section -->
-    <header class="gradient-header text-white pb-24 pt-8 px-4 sm:px-6 lg:px-8 shadow-lg relative overflow-hidden">
-        <div class="absolute -right-10 -bottom-10 w-96 h-96 bg-blue-500/10 rounded-full blur-3xl pointer-events-none"></div>
-        <div class="absolute right-1/3 -top-10 w-72 h-72 bg-emerald-500/10 rounded-full blur-3xl pointer-events-none"></div>
-
-        <div class="max-w-7xl mx-auto relative z-10">
-            <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
+        <!-- 四大核心數據卡片 -->
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+            <!-- 卡片 1: 目前體重 -->
+            <div class="glass-card p-6 flex items-center space-x-5 border-t-4 border-blue-400">
+                <div class="p-4 bg-blue-100 text-blue-600 rounded-full shadow-inner">
+                    <i class="fa-solid fa-weight-scale text-2xl"></i>
+                </div>
                 <div>
-                    <div class="flex items-center gap-3">
-                        <span class="bg-emerald-500/20 text-emerald-400 border border-emerald-500/30 text-xs font-semibold px-3 py-1 rounded-full uppercase tracking-wider">減脂專案記錄</span>
-                        <span class="text-xs text-slate-400"><i class="fa-regular fa-clock mr-1"></i>目標倒數：12/12</span>
-                    </div>
-                    <h1 class="text-3xl sm:text-4xl font-extrabold tracking-tight mt-2 text-white">
-                        減脂計畫與飲食體重紀錄表
-                    </h1>
-                    <p class="text-slate-300 text-sm sm:text-base mt-1 max-w-2xl">
-                        目標體重：<span class="text-emerald-400 font-bold">69.0 kg</span>（身高 173 cm） | 透過高蛋白質原型飲食、規律有氧慢跑與肌力訓練達成健康減脂。
-                    </p>
-                </div>
-                
-                <div class="flex items-center gap-3 self-start md:self-auto">
-                    <button onclick="downloadCSV()" class="inline-flex items-center gap-2 bg-slate-800/80 hover:bg-slate-700 text-slate-200 border border-slate-700 px-4 py-2.5 rounded-xl text-sm font-medium transition shadow-sm">
-                        <i class="fa-solid fa-file-arrow-down text-emerald-400"></i>
-                        匯出數據 CSV
-                    </button>
-                    <a href="https://docs.google.com/document/d/1icGPDLex7d9_xQw8fej9nhAQvpen61B3RCsa9u2GlMw/edit?usp=drivesdk&ouid=103589703200956734714" target="_blank" class="inline-flex items-center gap-2 bg-emerald-500 hover:bg-emerald-600 text-white px-4 py-2.5 rounded-xl text-sm font-medium transition shadow-md hover:shadow-lg">
-                        <i class="fa-solid fa-arrow-up-right-from-square"></i>
-                        開啟 Google Docs 檔
-                    </a>
-                </div>
-            </div>
-        </div>
-    </header>
-
-    <!-- Main Content Area -->
-    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 -mt-16 mb-12 flex-grow w-full relative z-20">
-
-        <!-- Stat Cards Grid -->
-        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-4 mb-8">
-            <!-- Card 1: Initial Weight -->
-            <div class="glass-card rounded-2xl p-5 shadow-sm hover:shadow-md transition">
-                <div class="flex items-center justify-between">
-                    <span class="text-xs font-semibold text-slate-500 uppercase tracking-wider">初始體重</span>
-                    <div class="w-8 h-8 rounded-lg bg-slate-100 flex items-center justify-center text-slate-600">
-                        <i class="fa-solid fa-flag"></i>
-                    </div>
-                </div>
-                <div class="mt-3 flex items-baseline gap-1">
-                    <span class="text-2xl font-bold text-slate-900">82.0</span>
-                    <span class="text-xs text-slate-500 font-medium">kg</span>
-                </div>
-                <span class="text-xs text-slate-400 mt-2 block">10/01 減脂起跑點</span>
-            </div>
-
-            <!-- Card 2: Latest Weight -->
-            <div class="glass-card rounded-2xl p-5 shadow-sm hover:shadow-md transition ring-2 ring-emerald-500/20">
-                <div class="flex items-center justify-between">
-                    <span class="text-xs font-semibold text-emerald-600 uppercase tracking-wider">最新體重</span>
-                    <div class="w-8 h-8 rounded-lg bg-emerald-100 flex items-center justify-center text-emerald-600">
-                        <i class="fa-solid fa-weight-scale"></i>
-                    </div>
-                </div>
-                <div class="mt-3 flex items-baseline gap-1">
-                    <span class="text-3xl font-extrabold text-slate-900" id="latest-weight">74.90</span>
-                    <span class="text-xs text-slate-500 font-medium">kg</span>
-                </div>
-                <div class="mt-2 flex items-center gap-1 text-xs text-emerald-600 font-semibold">
-                    <i class="fa-solid fa-calendar-day"></i>
-                    <span>11/07 創歷史新低</span>
-                </div>
-            </div>
-
-            <!-- Card 3: Total Weight Loss -->
-            <div class="glass-card rounded-2xl p-5 shadow-sm hover:shadow-md transition">
-                <div class="flex items-center justify-between">
-                    <span class="text-xs font-semibold text-blue-600 uppercase tracking-wider">累計減重</span>
-                    <div class="w-8 h-8 rounded-lg bg-blue-100 flex items-center justify-center text-blue-600">
-                        <i class="fa-solid fa-arrow-trend-down"></i>
-                    </div>
-                </div>
-                <div class="mt-3 flex items-baseline gap-1">
-                    <span class="text-3xl font-extrabold text-blue-600">-7.10</span>
-                    <span class="text-xs text-slate-500 font-medium">kg</span>
-                </div>
-                <div class="mt-2 flex items-center gap-1 text-xs text-slate-500">
-                    <span>達成率: </span>
-                    <span class="font-bold text-slate-700">68.9%</span>
-                </div>
-            </div>
-
-            <!-- Card 4: Current BMI -->
-            <div class="glass-card rounded-2xl p-5 shadow-sm hover:shadow-md transition">
-                <div class="flex items-center justify-between">
-                    <span class="text-xs font-semibold text-purple-600 uppercase tracking-wider">當前 BMI</span>
-                    <div class="w-8 h-8 rounded-lg bg-purple-100 flex items-center justify-center text-purple-600">
-                        <i class="fa-solid fa-heart-pulse"></i>
-                    </div>
-                </div>
-                <div class="mt-3 flex items-baseline gap-1">
-                    <span class="text-2xl font-bold text-slate-900">25.02</span>
-                </div>
-                <span class="text-xs text-purple-600 font-medium mt-2 block">正常目標 &lt; 24.0 (71.8kg)</span>
-            </div>
-
-            <!-- Card 5: Target Goal -->
-            <div class="glass-card rounded-2xl p-5 shadow-sm hover:shadow-md transition">
-                <div class="flex items-center justify-between">
-                    <span class="text-xs font-semibold text-amber-600 uppercase tracking-wider">最終目標</span>
-                    <div class="w-8 h-8 rounded-lg bg-amber-100 flex items-center justify-center text-amber-600">
-                        <i class="fa-solid fa-trophy"></i>
-                    </div>
-                </div>
-                <div class="mt-3 flex items-baseline gap-1">
-                    <span class="text-2xl font-bold text-slate-900">69.0</span>
-                    <span class="text-xs text-slate-500 font-medium">kg</span>
-                </div>
-                <span class="text-xs text-amber-600 font-medium mt-2 block">距目標剩 5.9 kg (12/12)</span>
-            </div>
-        </div>
-
-        <!-- Chart Section -->
-        <div class="glass-card rounded-2xl p-6 shadow-sm mb-8">
-            <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-6">
-                <div>
-                    <h2 class="text-lg font-bold text-slate-900 flex items-center gap-2">
-                        <i class="fa-solid fa-chart-line text-emerald-500"></i>
-                        體重趨勢與階段目標曲線
-                    </h2>
-                    <p class="text-xs text-slate-500 mt-0.5">即時紀錄空腹體重變化，綠色虛線為 12/12 最終 69.0 kg 目標線</p>
-                </div>
-                <div class="flex items-center gap-2 bg-slate-100 p-1 rounded-xl text-xs font-medium">
-                    <button class="px-3 py-1.5 rounded-lg bg-white shadow-sm text-slate-800 font-semibold">全部趨勢</button>
-                    <span class="text-slate-400 px-2">總計 14 筆數據點</span>
+                    <p class="text-sm text-slate-500 font-medium">目前體重 (11/07)</p>
+                    <p class="text-3xl font-bold text-slate-800">74.9 <span class="text-lg text-slate-400 font-normal">kg</span></p>
                 </div>
             </div>
             
-            <div class="relative w-full h-80 sm:h-96">
-                <canvas id="weightChart"></canvas>
+            <!-- 卡片 2: 目前 BMI -->
+            <div class="glass-card p-6 flex items-center space-x-5 border-t-4 border-green-400">
+                <div class="p-4 bg-green-100 text-green-600 rounded-full shadow-inner">
+                    <i class="fa-solid fa-heart-pulse text-2xl"></i>
+                </div>
+                <div>
+                    <p class="text-sm text-slate-500 font-medium">目前 BMI</p>
+                    <p class="text-3xl font-bold text-slate-800">25.02</p>
+                </div>
+            </div>
+            
+            <!-- 卡片 3: 累計減去 -->
+            <div class="glass-card p-6 flex items-center space-x-5 border-t-4 border-orange-400">
+                <div class="p-4 bg-orange-100 text-orange-500 rounded-full shadow-inner">
+                    <i class="fa-solid fa-fire text-2xl"></i>
+                </div>
+                <div>
+                    <p class="text-sm text-slate-500 font-medium">總計已減去</p>
+                    <p class="text-3xl font-bold text-slate-800">7.1 <span class="text-lg text-slate-400 font-normal">kg</span></p>
+                </div>
+            </div>
+            
+            <!-- 卡片 4: 距離目標 -->
+            <div class="glass-card p-6 flex items-center space-x-5 border-t-4 border-purple-400">
+                <div class="p-4 bg-purple-100 text-purple-600 rounded-full shadow-inner">
+                    <i class="fa-solid fa-bullseye text-2xl"></i>
+                </div>
+                <div>
+                    <p class="text-sm text-slate-500 font-medium">距離 69.0kg 目標</p>
+                    <p class="text-3xl font-bold text-slate-800">5.9 <span class="text-lg text-slate-400 font-normal">kg</span></p>
+                </div>
             </div>
         </div>
 
-        <!-- Two Column Layout: Advice & Quick Log -->
-        <div class="grid grid-cols-1 lg:grid-cols-3 gap-8 mb-8">
-            <!-- Left 2 Cols: Key Milestones & Strategies -->
-            <div class="lg:col-span-2 space-y-6">
-                <div class="glass-card rounded-2xl p-6 shadow-sm">
-                    <h2 class="text-lg font-bold text-slate-900 mb-4 flex items-center gap-2">
-                        <i class="fa-solid fa-bullseye text-blue-500"></i>
-                        大腿腿型改善與減脂重點策略
-                    </h2>
-                    
-                    <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
-                        <div class="bg-slate-50 border border-slate-100 rounded-xl p-4">
-                            <div class="w-8 h-8 rounded-full bg-emerald-100 text-emerald-600 flex items-center justify-center font-bold text-sm mb-2">1</div>
-                            <h3 class="font-semibold text-sm text-slate-800 mb-1">啞鈴 RDL 髖折疊</h3>
-                            <p class="text-xs text-slate-600 leading-relaxed">
-                                精準強化大腿後側與臀大肌，避免大腿前側代償，提臀並拉長腿部視覺比例。
-                            </p>
-                        </div>
-                        <div class="bg-slate-50 border border-slate-100 rounded-xl p-4">
-                            <div class="w-8 h-8 rounded-full bg-blue-100 text-blue-600 flex items-center justify-center font-bold text-sm mb-2">2</div>
-                            <h3 class="font-semibold text-sm text-slate-800 mb-1">跑前激活 / 跑後滾筒</h3>
-                            <p class="text-xs text-slate-600 leading-relaxed">
-                                跑前活化臀部神經，跑後徹底放鬆大腿前側與外側，防止充血肌肉結塊。
-                            </p>
-                        </div>
-                        <div class="bg-slate-50 border border-slate-100 rounded-xl p-4">
-                            <div class="w-8 h-8 rounded-full bg-purple-100 text-purple-600 flex items-center justify-center font-bold text-sm mb-2">3</div>
-                            <h3 class="font-semibold text-sm text-slate-800 mb-1">睡前靠牆抬腿 15分</h3>
-                            <p class="text-xs text-slate-600 leading-relaxed">
-                                針對久坐8小時與搭車站立造成的水腫，促進下肢血液與淋巴回流消腫。
-                            </p>
-                        </div>
-                    </div>
+        <!-- 曲線圖與策略區塊 -->
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+            
+            <!-- 體重趨勢圖 (佔據 2 欄) -->
+            <div class="glass-card p-6 lg:col-span-2">
+                <div class="flex justify-between items-center mb-4">
+                    <h2 class="text-xl font-bold text-slate-700"><i class="fa-solid fa-chart-line text-teal-500 mr-2"></i>體重下降趨勢圖</h2>
+                </div>
+                <div class="relative h-72 w-full">
+                    <canvas id="weightChart"></canvas>
                 </div>
             </div>
 
-            <!-- Right 1 Col: Quick Stat Breakdown -->
-            <div class="glass-card rounded-2xl p-6 shadow-sm flex flex-col justify-between">
+            <!-- 任務清單與策略提示 (佔據 1 欄) -->
+            <div class="glass-card p-6 flex flex-col justify-between">
                 <div>
-                    <h2 class="text-lg font-bold text-slate-900 mb-4 flex items-center gap-2">
-                        <i class="fa-solid fa-list-check text-amber-500"></i>
-                        每日目標指南
-                    </h2>
-                    
-                    <ul class="space-y-3.5 text-xs">
-                        <li class="flex items-center justify-between pb-2 border-b border-slate-100">
-                            <span class="text-slate-600"><i class="fa-solid fa-fire text-orange-400 mr-2"></i>每日熱量目標</span>
-                            <span class="font-semibold text-slate-800">1,550 ~ 1,650 kcal</span>
+                    <h2 class="text-lg font-bold mb-4 text-slate-700"><i class="fa-solid fa-clipboard-check text-teal-500 mr-2"></i>每日任務監控</h2>
+                    <ul class="space-y-3">
+                        <li class="flex items-center text-slate-600 bg-slate-50 p-2 rounded">
+                            <i class="fa-regular fa-circle-check text-green-500 mr-3 text-lg"></i>
+                            <span class="text-sm font-medium">熱量控制：1,550 ~ 1,650 kcal</span>
                         </li>
-                        <li class="flex items-center justify-between pb-2 border-b border-slate-100">
-                            <span class="text-slate-600"><i class="fa-solid fa-drumstick-bite text-red-400 mr-2"></i>每日蛋白質目標</span>
-                            <span class="font-semibold text-slate-800">110 ~ 125 g</span>
+                        <li class="flex items-center text-slate-600 bg-slate-50 p-2 rounded">
+                            <i class="fa-regular fa-circle-check text-green-500 mr-3 text-lg"></i>
+                            <span class="text-sm font-medium">蛋白質達標：110 ~ 125g</span>
                         </li>
-                        <li class="flex items-center justify-between pb-2 border-b border-slate-100">
-                            <span class="text-slate-600"><i class="fa-solid fa-bottle-water text-cyan-400 mr-2"></i>每日飲水目標</span>
-                            <span class="font-semibold text-slate-800">2,500 ~ 3,000 c.c.</span>
+                        <li class="flex items-center text-slate-600 bg-slate-50 p-2 rounded">
+                            <i class="fa-regular fa-circle-check text-green-500 mr-3 text-lg"></i>
+                            <span class="text-sm font-medium">充足飲水：2,500 ~ 3,000 c.c.</span>
                         </li>
-                        <li class="flex items-center justify-between">
-                            <span class="text-slate-600"><i class="fa-solid fa-person-running text-emerald-400 mr-2"></i>晚間有氧/訓練</span>
-                            <span class="font-semibold text-slate-800">慢跑/超慢跑 30~50分</span>
+                        <li class="flex items-center text-slate-600 bg-slate-50 p-2 rounded">
+                            <i class="fa-regular fa-circle-check text-green-500 mr-3 text-lg"></i>
+                            <span class="text-sm font-medium">充足睡眠：23:30 躺平 (滿 7hr)</span>
                         </li>
                     </ul>
                 </div>
-
-                <div class="mt-6 pt-4 border-t border-slate-100 bg-emerald-50/50 -mx-6 -mb-6 p-6 rounded-b-2xl">
-                    <div class="flex items-center justify-between text-xs mb-1">
-                        <span class="font-semibold text-emerald-800">減脂進度 (82.0kg ➔ 69.0kg)</span>
-                        <span class="font-bold text-emerald-600">68.9%</span>
-                    </div>
-                    <div class="w-full bg-emerald-200/60 h-2.5 rounded-full overflow-hidden">
-                        <div class="bg-emerald-500 h-full rounded-full transition-all duration-1000" style="width: 68.9%"></div>
-                    </div>
+                
+                <div class="mt-6 bg-teal-50 p-4 rounded-lg border border-teal-100">
+                    <h3 class="text-sm text-teal-800 font-bold mb-2"><i class="fa-solid fa-bolt mr-1"></i> 腿部視覺改善核心策略</h3>
+                    <ul class="text-xs text-slate-600 space-y-2 list-disc pl-4 marker:text-teal-400">
+                        <li><b>跑步：</b> 提高步頻，專注大腿後側與臀部發力拉動。</li>
+                        <li><b>重訓：</b> 每週 2-3 次啞鈴 RDL，強化後側鏈。</li>
+                        <li><b>放鬆：</b> 每日睡前靠牆抬腿 15 分，跑後務必滾筒推開大腿外/前側。</li>
+                    </ul>
                 </div>
             </div>
         </div>
 
-        <!-- Log Table Section -->
-        <div class="glass-card rounded-2xl shadow-sm overflow-hidden">
-            <div class="p-6 border-b border-slate-100 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
-                <div>
-                    <h2 class="text-lg font-bold text-slate-900 flex items-center gap-2">
-                        <i class="fa-solid fa-utensils text-slate-700"></i>
-                        每日飲食體重與評估紀錄表
-                    </h2>
-                    <p class="text-xs text-slate-500 mt-0.5">點擊搜尋或篩選特定日期及熱量資訊</p>
-                </div>
-                <div class="flex items-center gap-3">
-                    <div class="relative">
-                        <i class="fa-solid fa-magnifying-glass absolute left-3 top-1/2 -translate-y-1/2 text-slate-400 text-xs"></i>
-                        <input type="text" id="searchInput" onkeyup="filterTable()" placeholder="搜尋飲食或日期..." class="pl-9 pr-4 py-2 bg-slate-50 border border-slate-200 rounded-xl text-xs focus:outline-none focus:ring-2 focus:ring-emerald-500/20 focus:border-emerald-500 w-48 sm:w-64">
-                    </div>
-                </div>
-            </div>
-
+        <!-- 歷史紀錄表格 -->
+        <div class="glass-card p-6 overflow-hidden">
+            <h2 class="text-xl font-bold mb-4 text-slate-700"><i class="fa-solid fa-list-ul text-teal-500 mr-2"></i>近期重要里程碑與紀錄</h2>
             <div class="overflow-x-auto">
-                <table class="w-full text-left text-xs text-slate-700" id="logTable">
-                    <thead class="bg-slate-50/80 text-slate-500 uppercase tracking-wider font-semibold border-b border-slate-100">
-                        <tr>
-                            <th class="py-3.5 px-4 sm:px-6">日期</th>
-                            <th class="py-3.5 px-4 sm:px-6">空腹體重</th>
-                            <th class="py-3.5 px-4 sm:px-6">早餐內容</th>
-                            <th class="py-3.5 px-4 sm:px-6">午餐內容</th>
-                            <th class="py-3.5 px-4 sm:px-6">晚餐內容</th>
-                            <th class="py-3.5 px-4 sm:px-6">熱量 / 蛋白質</th>
-                            <th class="py-3.5 px-4 sm:px-6">備註評估</th>
+                <table class="w-full text-left border-collapse">
+                    <thead>
+                        <tr class="bg-slate-100 text-slate-600 text-sm uppercase tracking-wider">
+                            <th class="p-3 rounded-tl-lg font-semibold">日期</th>
+                            <th class="p-3 font-semibold">體重 (kg)</th>
+                            <th class="p-3 font-semibold">BMI</th>
+                            <th class="p-3 rounded-tr-lg font-semibold">備註與運動項目</th>
                         </tr>
                     </thead>
-                    <tbody class="divide-y divide-slate-100 font-normal">
-                        <tr class="hover:bg-slate-50/50 transition">
-                            <td class="py-4 px-4 sm:px-6 font-semibold text-slate-900 whitespace-nowrap">11/07</td>
-                            <td class="py-4 px-4 sm:px-6 whitespace-nowrap"><span class="inline-flex items-center px-2.5 py-1 rounded-lg text-xs font-bold bg-emerald-100 text-emerald-700">74.90 kg</span></td>
-                            <td class="py-4 px-4 sm:px-6 text-slate-400">暫無記錄</td>
-                            <td class="py-4 px-4 sm:px-6 text-slate-400">暫無記錄</td>
-                            <td class="py-4 px-4 sm:px-6 text-slate-400">暫無記錄</td>
-                            <td class="py-4 px-4 sm:px-6 font-medium text-slate-600 whitespace-nowrap">0 kcal / 0g</td>
-                            <td class="py-4 px-4 sm:px-6 text-slate-600 max-w-xs">重大突破！首度突破進入 74kg 區間，累計減重 7.1kg，BMI 降至 25.02！</td>
+                    <tbody class="text-slate-700 text-sm">
+                        <tr class="border-b border-slate-100 hover:bg-slate-50 transition-colors bg-teal-50/30">
+                            <td class="p-3 font-bold text-teal-700">11/07</td>
+                            <td class="p-3 font-bold text-teal-700">74.90</td>
+                            <td class="p-3 text-teal-700">25.02</td>
+                            <td class="p-3 font-medium text-teal-800">🎉 重大突破 74kg 區間！累計減重達 7.1kg</td>
                         </tr>
-                        <tr class="hover:bg-slate-50/50 transition">
-                            <td class="py-4 px-4 sm:px-6 font-semibold text-slate-900 whitespace-nowrap">11/01</td>
-                            <td class="py-4 px-4 sm:px-6 whitespace-nowrap"><span class="inline-flex items-center px-2.5 py-1 rounded-lg text-xs font-bold bg-slate-100 text-slate-800">76.30 kg</span></td>
-                            <td class="py-4 px-4 sm:px-6 text-slate-400">暫無記錄</td>
-                            <td class="py-4 px-4 sm:px-6 text-slate-400">暫無記錄</td>
-                            <td class="py-4 px-4 sm:px-6 text-slate-400">暫無記錄</td>
-                            <td class="py-4 px-4 sm:px-6 font-medium text-slate-600 whitespace-nowrap">0 kcal / 0g</td>
-                            <td class="py-4 px-4 sm:px-6 text-slate-600 max-w-xs">再創新低至 76.30kg，體重下降趨勢紮實。</td>
+                        <tr class="border-b border-slate-100 hover:bg-slate-50 transition-colors">
+                            <td class="p-3 font-medium">11/01</td>
+                            <td class="p-3 text-slate-600">76.30</td>
+                            <td class="p-3 text-slate-400">25.49</td>
+                            <td class="p-3 text-slate-500">慢跑/RDL/大腿伸展與抬腿</td>
                         </tr>
-                        <tr class="hover:bg-slate-50/50 transition">
-                            <td class="py-4 px-4 sm:px-6 font-semibold text-slate-900 whitespace-nowrap">10/21</td>
-                            <td class="py-4 px-4 sm:px-6 whitespace-nowrap"><span class="inline-flex items-center px-2.5 py-1 rounded-lg text-xs font-bold bg-slate-100 text-slate-800">76.65 kg</span></td>
-                            <td class="py-4 px-4 sm:px-6 text-slate-400">暫無記錄</td>
-                            <td class="py-4 px-4 sm:px-6 text-slate-400">暫無記錄</td>
-                            <td class="py-4 px-4 sm:px-6 text-slate-400">暫無記錄</td>
-                            <td class="py-4 px-4 sm:px-6 font-medium text-slate-600 whitespace-nowrap">0 kcal / 0g</td>
-                            <td class="py-4 px-4 sm:px-6 text-slate-600 max-w-xs">大幅下降 1.2kg，一口氣跨過 77kg 進入 76kg 區間！</td>
+                        <tr class="border-b border-slate-100 hover:bg-slate-50 transition-colors">
+                            <td class="p-3 font-medium">10/21</td>
+                            <td class="p-3 text-slate-600">76.65</td>
+                            <td class="p-3 text-slate-400">25.61</td>
+                            <td class="p-3 text-slate-500">核心/腿部/有氧 (大幅下降階段)</td>
                         </tr>
-                        <tr class="hover:bg-slate-50/50 transition">
-                            <td class="py-4 px-4 sm:px-6 font-semibold text-slate-900 whitespace-nowrap">10/19</td>
-                            <td class="py-4 px-4 sm:px-6 whitespace-nowrap"><span class="inline-flex items-center px-2.5 py-1 rounded-lg text-xs font-medium bg-slate-100 text-slate-700">77.85 kg</span></td>
-                            <td class="py-4 px-4 sm:px-6">生乳燒 4 顆</td>
-                            <td class="py-4 px-4 sm:px-6">白蘿蔔+杏鮑菇+棒棒腿2隻</td>
-                            <td class="py-4 px-4 sm:px-6 text-slate-400">未補充</td>
-                            <td class="py-4 px-4 sm:px-6 font-medium text-slate-600 whitespace-nowrap">880 kcal / 34g</td>
-                            <td class="py-4 px-4 sm:px-6 text-slate-600 max-w-xs">空腹體重回落至 77.85kg，午餐原型高纖高蛋白調整得當。</td>
+                        <tr class="border-b border-slate-100 hover:bg-slate-50 transition-colors">
+                            <td class="p-3 font-medium">10/19</td>
+                            <td class="p-3 text-slate-600">77.85</td>
+                            <td class="p-3 text-slate-400">26.01</td>
+                            <td class="p-3 text-slate-500">飲食：生乳燒、棒棒腿 (總熱量 880 kcal)</td>
                         </tr>
-                        <tr class="hover:bg-slate-50/50 transition">
-                            <td class="py-4 px-4 sm:px-6 font-semibold text-slate-900 whitespace-nowrap">10/18</td>
-                            <td class="py-4 px-4 sm:px-6 whitespace-nowrap"><span class="inline-flex items-center px-2.5 py-1 rounded-lg text-xs font-medium bg-slate-100 text-slate-700">78.10 kg</span></td>
-                            <td class="py-4 px-4 sm:px-6">生乳燒 2 顆</td>
-                            <td class="py-4 px-4 sm:px-6">鮭魚肉+炸香菇+花椰菜</td>
-                            <td class="py-4 px-4 sm:px-6">白蘿蔔+杏鮑菇+棒棒腿3支</td>
-                            <td class="py-4 px-4 sm:px-6 font-medium text-slate-600 whitespace-nowrap">1,230 kcal / 73g</td>
-                            <td class="py-4 px-4 sm:px-6 text-slate-600 max-w-xs">晚餐選用棒棒腿搭配高纖白蘿蔔與杏鮑菇，全天赤字佳。</td>
-                        </tr>
-                        <tr class="hover:bg-slate-50/50 transition">
-                            <td class="py-4 px-4 sm:px-6 font-semibold text-slate-900 whitespace-nowrap">10/15</td>
-                            <td class="py-4 px-4 sm:px-6 whitespace-nowrap"><span class="inline-flex items-center px-2.5 py-1 rounded-lg text-xs font-medium bg-slate-100 text-slate-700">77.80 kg</span></td>
-                            <td class="py-4 px-4 sm:px-6">饅頭 1 顆</td>
-                            <td class="py-4 px-4 sm:px-6">魚肉+嫩豆腐+玉米筍+杏鮑菇</td>
-                            <td class="py-4 px-4 sm:px-6">牛小排3條+雞腿肉5塊+高麗菜</td>
-                            <td class="py-4 px-4 sm:px-6 font-medium text-slate-600 whitespace-nowrap">1,180 kcal / 81g</td>
-                            <td class="py-4 px-4 sm:px-6 text-slate-600 max-w-xs">蛋白質累積達到 81g，首度順利突破進入 77kg 區間！</td>
-                        </tr>
-                        <tr class="hover:bg-slate-50/50 transition">
-                            <td class="py-4 px-4 sm:px-6 font-semibold text-slate-900 whitespace-nowrap">10/13</td>
-                            <td class="py-4 px-4 sm:px-6 whitespace-nowrap"><span class="inline-flex items-center px-2.5 py-1 rounded-lg text-xs font-medium bg-slate-100 text-slate-700">78.30 kg</span></td>
-                            <td class="py-4 px-4 sm:px-6">葡萄乾麵包</td>
-                            <td class="py-4 px-4 sm:px-6">蘋果 1 顆 + 水煮蛋 1 顆</td>
-                            <td class="py-4 px-4 sm:px-6">羊肉湯 + 牛排 + 高麗菜</td>
-                            <td class="py-4 px-4 sm:px-6 font-medium text-slate-600 whitespace-nowrap">1,115 kcal / 65g</td>
-                            <td class="py-4 px-4 sm:px-6 text-slate-600 max-w-xs">微幅回升屬運動肌肉充血與鈉含量水腫，熱量赤字優異。</td>
-                        </tr>
-                        <tr class="hover:bg-slate-50/50 transition">
-                            <td class="py-4 px-4 sm:px-6 font-semibold text-slate-900 whitespace-nowrap">10/10</td>
-                            <td class="py-4 px-4 sm:px-6 whitespace-nowrap"><span class="inline-flex items-center px-2.5 py-1 rounded-lg text-xs font-medium bg-slate-100 text-slate-700">78.15 kg</span></td>
-                            <td class="py-4 px-4 sm:px-6">極餓閃電輕奶昔 1 包</td>
-                            <td class="py-4 px-4 sm:px-6">蘋果+水煮蛋+豆漿375ml</td>
-                            <td class="py-4 px-4 sm:px-6">炒花椰菜 + 蝦仁烘蛋</td>
-                            <td class="py-4 px-4 sm:px-6 font-medium text-slate-600 whitespace-nowrap">885 kcal / 54g</td>
-                            <td class="py-4 px-4 sm:px-6 text-slate-600 max-w-xs">晚餐花椰菜與蝦仁烘蛋非常健康優秀。</td>
-                        </tr>
-                        <tr class="hover:bg-slate-50/50 transition">
-                            <td class="py-4 px-4 sm:px-6 font-semibold text-slate-900 whitespace-nowrap">10/05</td>
-                            <td class="py-4 px-4 sm:px-6 whitespace-nowrap"><span class="inline-flex items-center px-2.5 py-1 rounded-lg text-xs font-medium bg-slate-100 text-slate-700">79.10 kg</span></td>
-                            <td class="py-4 px-4 sm:px-6">蛋黃酥 1 顆</td>
-                            <td class="py-4 px-4 sm:px-6">茶葉蛋+蘋果+義美厚濃豆漿</td>
-                            <td class="py-4 px-4 sm:px-6">板豆腐2塊+雞腿2隻+玉米1根</td>
-                            <td class="py-4 px-4 sm:px-6 font-medium text-slate-600 whitespace-nowrap">1,330 kcal / 68.5g</td>
-                            <td class="py-4 px-4 sm:px-6 text-slate-600 max-w-xs">配合 1 小時跳舞運動，淨熱量赤字極佳。</td>
-                        </tr>
-                        <tr class="hover:bg-slate-50/50 transition">
-                            <td class="py-4 px-4 sm:px-6 font-semibold text-slate-900 whitespace-nowrap">10/01</td>
-                            <td class="py-4 px-4 sm:px-6 whitespace-nowrap"><span class="inline-flex items-center px-2.5 py-1 rounded-lg text-xs font-medium bg-amber-100 text-amber-800">82.00 kg</span></td>
-                            <td class="py-4 px-4 sm:px-6 text-slate-400">初始基準點</td>
-                            <td class="py-4 px-4 sm:px-6 text-slate-400">初始基準點</td>
-                            <td class="py-4 px-4 sm:px-6 text-slate-400">初始基準點</td>
-                            <td class="py-4 px-4 sm:px-6 font-medium text-slate-600 whitespace-nowrap">-</td>
-                            <td class="py-4 px-4 sm:px-6 text-slate-600 max-w-xs">減脂計畫啟動（目標 12/12 達到 69.0 公斤）。</td>
+                        <tr class="hover:bg-slate-50 transition-colors">
+                            <td class="p-3 font-medium">10/18</td>
+                            <td class="p-3 text-slate-600">78.10</td>
+                            <td class="p-3 text-slate-400">26.10</td>
+                            <td class="p-3 text-slate-500">晚間運動/核心/腿部肌力</td>
                         </tr>
                     </tbody>
                 </table>
             </div>
         </div>
+    </div>
 
-    </main>
-
-    <!-- Footer -->
-    <footer class="bg-slate-900 text-slate-400 py-6 border-t border-slate-800 text-xs">
-        <div class="max-w-7xl mx-auto px-4 text-center sm:flex sm:justify-between sm:items-center">
-            <p>© 減脂追蹤與飲食體重紀錄儀表板. All rights reserved.</p>
-            <p class="mt-2 sm:mt-0">目標日期：<span class="text-emerald-400 font-medium">2026/12/12</span> (目標 69.0 kg)</p>
-        </div>
-    </footer>
-
-    <!-- Chart Script and Interactivity -->
+    <!-- Chart.js 繪圖腳本 -->
     <script>
-        // Data points for Chart.js
-        const chartData = [
-            { date: '10/01', weight: 82.00 },
-            { date: '10/04', weight: 79.30 },
-            { date: '10/05', weight: 79.10 },
-            { date: '10/06', weight: 78.50 },
-            { date: '10/08', weight: 79.30 },
-            { date: '10/09', weight: 78.50 },
-            { date: '10/10', weight: 78.15 },
-            { date: '10/13', weight: 78.30 },
-            { date: '10/15', weight: 77.80 },
-            { date: '10/18', weight: 78.10 },
-            { date: '10/19', weight: 77.85 },
-            { date: '10/21', weight: 76.65 },
-            { date: '11/01', weight: 76.30 },
-            { date: '11/07', weight: 74.90 }
-        ];
-
-        const labels = chartData.map(d => d.date);
-        const weights = chartData.map(d => d.weight);
-        const targetWeight = 69.0;
-        const targetLine = new Array(chartData.length).fill(targetWeight);
-
-        // Chart Initialization
         const ctx = document.getElementById('weightChart').getContext('2d');
         
-        // Gradient for Weight Line
-        const weightGradient = ctx.createLinearGradient(0, 0, 0, 300);
-        weightGradient.addColorStop(0, 'rgba(34, 197, 94, 0.4)');
-        weightGradient.addColorStop(1, 'rgba(34, 197, 94, 0.0)');
+        // 漸層背景設定 (讓折線圖下方有漸層美感)
+        const gradientFill = ctx.createLinearGradient(0, 0, 0, 300);
+        gradientFill.addColorStop(0, 'rgba(13, 148, 136, 0.4)'); // Teal 600 高透明度
+        gradientFill.addColorStop(1, 'rgba(13, 148, 136, 0.0)');
 
-        const weightChart = new Chart(ctx, {
+        const data = {
+            labels: ['10/04', '10/06', '10/08', '10/09', '10/10', '10/13', '10/15', '10/18', '10/19', '10/21', '11/01', '11/07'],
+            datasets: [
+                {
+                    label: '實際體重 (kg)',
+                    data: [79.3, 78.5, 79.3, 78.5, 78.15, 78.3, 77.8, 78.1, 77.85, 76.65, 76.3, 74.9],
+                    borderColor: '#0d9488', // Tailwind teal-600
+                    backgroundColor: gradientFill,
+                    borderWidth: 3,
+                    fill: true,
+                    tension: 0.4, // 讓曲線平滑
+                    pointBackgroundColor: '#ffffff',
+                    pointBorderColor: '#0d9488',
+                    pointBorderWidth: 2,
+                    pointRadius: 5,
+                    pointHoverRadius: 7,
+                    pointHoverBackgroundColor: '#0d9488',
+                    pointHoverBorderColor: '#ffffff'
+                },
+                {
+                    label: '目標體重 (69.0 kg)',
+                    data: Array(12).fill(69),
+                    borderColor: '#f43f5e', // Tailwind rose-500
+                    borderWidth: 2,
+                    borderDash: [5, 5],
+                    fill: false,
+                    pointRadius: 0,
+                    pointHoverRadius: 0
+                }
+            ]
+        };
+
+        new Chart(ctx, {
             type: 'line',
-            data: {
-                labels: labels,
-                datasets: [
-                    {
-                        label: '實際空腹體重 (kg)',
-                        data: weights,
-                        borderColor: '#16a34a',
-                        borderWidth: 3,
-                        backgroundColor: weightGradient,
-                        fill: true,
-                        tension: 0.3,
-                        pointBackgroundColor: '#ffffff',
-                        pointBorderColor: '#15803d',
-                        pointBorderWidth: 2,
-                        pointRadius: 5,
-                        pointHoverRadius: 7
-                    },
-                    {
-                        label: '12/12 最終目標 (69.0 kg)',
-                        data: targetLine,
-                        borderColor: '#f59e0b',
-                        borderWidth: 2,
-                        borderDash: [6, 6],
-                        pointRadius: 0,
-                        fill: false
-                    }
-                ]
-            },
+            data: data,
             options: {
                 responsive: true,
                 maintainAspectRatio: false,
+                interaction: {
+                    mode: 'index',
+                    intersect: false,
+                },
                 plugins: {
-                    legend: {
+                    legend: { 
                         position: 'top',
-                        labels: {
-                            font: { family: 'Inter', size: 12 },
+                        labels: { 
+                            font: { family: 'Segoe UI', size: 13, weight: '500' },
                             usePointStyle: true,
                             boxWidth: 8
                         }
                     },
                     tooltip: {
-                        backgroundColor: '#0f172a',
-                        titleFont: { size: 13, weight: 'bold' },
-                        bodyFont: { size: 12 },
-                        padding: 10,
+                        backgroundColor: 'rgba(15, 23, 42, 0.9)', // slate-900
+                        titleFont: { size: 14, family: 'Segoe UI' },
+                        bodyFont: { size: 13, family: 'Segoe UI' },
+                        padding: 12,
                         cornerRadius: 8,
-                        callbacks: {
-                            label: function(context) {
-                                return ` ${context.dataset.label}: ${context.raw} kg`;
-                            }
-                        }
+                        displayColors: false
                     }
                 },
                 scales: {
+                    y: {
+                        min: 65,
+                        max: 85,
+                        grid: { 
+                            color: '#e2e8f0', // slate-200
+                            borderDash: [5, 5]
+                        },
+                        ticks: { 
+                            color: '#64748b', // slate-500
+                            font: { size: 12 }
+                        },
+                        title: { 
+                            display: true, 
+                            text: '體重 (公斤)', 
+                            color: '#94a3b8',
+                            font: { size: 13, weight: 'bold' }
+                        }
+                    },
                     x: {
                         grid: { display: false },
-                        ticks: { font: { family: 'Inter', size: 11 } }
-                    },
-                    y: {
-                        min: 67,
-                        max: 84,
-                        grid: { color: '#f1f5f9' },
-                        ticks: {
-                            stepSize: 2,
-                            font: { family: 'Inter', size: 11 },
-                            callback: function(value) { return value + ' kg'; }
+                        ticks: { 
+                            color: '#64748b',
+                            font: { size: 12 }
                         }
                     }
                 }
             }
         });
-
-        // Search Filter Logic for Table
-        function filterTable() {
-            const input = document.getElementById('searchInput');
-            const filter = input.value.toUpperCase();
-            const table = document.getElementById('logTable');
-            const tr = table.getElementsByTagName('tr');
-
-            for (let i = 1; i < tr.length; i++) {
-                let showRow = false;
-                const tds = tr[i].getElementsByTagName('td');
-                for (let j = 0; j < tds.length; j++) {
-                    if (tds[j]) {
-                        const txtValue = tds[j].textContent || tds[j].innerText;
-                        if (txtValue.toUpperCase().indexOf(filter) > -1) {
-                            showRow = true;
-                            break;
-                        }
-                    }
-                }
-                tr[i].style.display = showRow ? '' : 'none';
-            }
-        }
-
-        // CSV Export functionality
-        function downloadCSV() {
-            let csv = '日期,空腹體重(kg),早餐內容,午餐內容,晚餐內容,熱量與蛋白質,備註評估\n';
-            const table = document.getElementById('logTable');
-            const rows = table.querySelectorAll('tr');
-
-            for (let i = 1; i < rows.length; i++) {
-                const cols = rows[i].querySelectorAll('td, th');
-                const rowData = [];
-                for (let j = 0; j < cols.length; j++) {
-                    let text = cols[j].innerText.replace(/(\r\n|\n|\r)/gm, ' ').trim();
-                    text = '"' + text.replace(/"/g, '""') + '"';
-                    rowData.push(text);
-                }
-                csv += rowData.join(',') + '\n';
-            }
-
-            const blob = new Blob(['\uFEFF' + csv], { type: 'text/csv;charset=utf-8;' });
-            const link = document.createElement('a');
-            const url = URL.createObjectURL(blob);
-            link.setAttribute('href', url);
-            link.setAttribute('download', '減脂計畫與飲食體重紀錄表.csv');
-            link.style.visibility = 'hidden';
-            document.body.appendChild(link);
-            link.click();
-            document.body.removeChild(link);
-        }
     </script>
 </body>
 </html>
