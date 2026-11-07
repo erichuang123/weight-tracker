@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Eric的減脂與體重追蹤</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; margin: 0; padding: 20px; background-color: #f5f7fa; color: #333; }
+        .container { max-width: 800px; margin: 0 auto; background: white; padding: 20px; border-radius: 10px; box-shadow: 0 4px 6px rgba(0,0,0,0.1); }
+        h1 { text-align: center; color: #2c3e50; margin-bottom: 30px; }
+        .stats { display: flex; justify-content: space-between; margin-bottom: 30px; gap: 15px; flex-wrap: wrap; }
+        .stat-box { flex: 1; background: #e0f7fa; padding: 20px; border-radius: 8px; text-align: center; min-width: 150px; }
+        .stat-box h3 { margin: 0 0 10px 0; font-size: 1.1em; color: #00796b; }
+        .stat-box p { margin: 0; font-size: 1.8em; font-weight: bold; color: #004d40; }
+        .highlight { color: #d32f2f !important; }
+        canvas { max-width: 100%; margin-bottom: 30px; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🚀 Eric 的減脂與體重進度儀表板</h1>
+        
+        <div class="stats">
+            <div class="stat-box">
+                <h3>目前體重 (11/07)</h3>
+                <p class="highlight">74.9 kg</p>
+            </div>
+            <div class="stat-box">
+                <h3>目前 BMI</h3>
+                <p>25.0</p>
+            </div>
+            <div class="stat-box">
+                <h3>目標體重 (12/12前)</h3>
+                <p>69.0 kg</p>
+            </div>
+        </div>
+
+        <canvas id="weightChart"></canvas>
+    </div>
+
+    <script>
+        const ctx = document.getElementById('weightChart').getContext('2d');
+        const data = {
+            labels: ['10/04', '10/06', '10/08', '10/09', '10/10', '10/13', '10/15', '10/18', '10/19', '10/21', '11/01', '11/07'],
+            datasets: [
+                {
+                    label: '實際體重 (kg)',
+                    data: [79.3, 78.5, 79.3, 78.5, 78.15, 78.3, 77.8, 78.1, 77.85, 76.65, 76.3, 74.9],
+                    borderColor: '#00796b',
+                    backgroundColor: 'rgba(0, 121, 107, 0.1)',
+                    borderWidth: 3,
+                    fill: true,
+                    tension: 0.3,
+                    pointBackgroundColor: '#00796b',
+                    pointRadius: 4
+                },
+                {
+                    label: '目標體重 (69.0 kg)',
+                    data: Array(12).fill(69),
+                    borderColor: '#e53935',
+                    borderWidth: 2,
+                    borderDash: [5, 5],
+                    fill: false,
+                    pointRadius: 0
+                }
+            ]
+        };
+
+        new Chart(ctx, {
+            type: 'line',
+            data: data,
+            options: {
+                responsive: true,
+                plugins: {
+                    legend: { position: 'bottom' }
+                },
+                scales: {
+                    y: {
+                        min: 65,
+                        max: 85,
+                        title: { display: true, text: '體重 (公斤)' }
+                    }
+                }
+            }
+        });
+    </script>
+</body>
+</html>
