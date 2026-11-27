@@ -11,35 +11,38 @@
     <!-- 引入 FontAwesome 圖示 -->
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
     <style>
-        body { 
-            background-color: #f1f5f9; 
-            font-family: 'Segoe UI', 'PingFang TC', 'Microsoft JhengHei', sans-serif; 
+        body {
+            background-color: #f1f5f9;
+            font-family: 'Segoe UI', 'PingFang TC', 'Microsoft JhengHei', sans-serif;
         }
-        .glass-card { 
-            background: rgba(255, 255, 255, 0.95); 
-            border-radius: 1rem; 
-            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.05), 0 4px 6px -2px rgba(0, 0, 0, 0.025); 
+        .glass-card {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 1rem;
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.05), 0 4px 6px -2px rgba(0, 0, 0, 0.025);
             transition: transform 0.2s ease-in-out;
         }
         .glass-card:hover {
             transform: translateY(-2px);
         }
+        .tabular-nums {
+            font-variant-numeric: tabular-nums;
+        }
     </style>
 </head>
 <body class="text-gray-800 antialiased p-4 md:p-8">
     <div class="max-w-7xl mx-auto space-y-6">
-        
+
         <!-- 頂部標題區塊 -->
         <header class="flex flex-col md:flex-row justify-between items-center glass-card p-6 border-l-4 border-teal-500">
             <div>
                 <h1 class="text-3xl font-bold text-slate-800">
                     <i class="fa-solid fa-person-running text-teal-500 mr-3"></i>Eric 的減脂進度儀表板
                 </h1>
-                <p class="text-slate-500 mt-2">終極目標：12/12 達成 69.0 kg，精實腿部線條！</p>
+                <p class="text-slate-500 mt-2">終極目標：12/12 達成 69.0 kg（目前達成率 64.6%，距健康 BMI&lt;24 僅剩 1.80 kg）</p>
             </div>
             <div class="mt-4 md:mt-0 text-right bg-slate-50 p-3 rounded-lg border border-slate-100">
                 <p class="text-sm text-slate-500">系統最後更新日期</p>
-                <p class="text-lg font-bold text-teal-600"><i class="fa-regular fa-clock mr-1"></i> 2026 / 11 / 07</p>
+                <p class="text-lg font-bold text-teal-600 tabular-nums"><i class="fa-regular fa-clock mr-1"></i> 2026 / 11 / 25</p>
             </div>
         </header>
 
@@ -51,11 +54,12 @@
                     <i class="fa-solid fa-weight-scale text-2xl"></i>
                 </div>
                 <div>
-                    <p class="text-sm text-slate-500 font-medium">目前體重 (11/07)</p>
-                    <p class="text-3xl font-bold text-slate-800">74.9 <span class="text-lg text-slate-400 font-normal">kg</span></p>
+                    <p class="text-sm text-slate-500 font-medium">目前體重 (11/25)</p>
+                    <p class="text-3xl font-bold text-slate-800 tabular-nums">73.60 <span class="text-lg text-slate-400 font-normal">kg</span></p>
+                    <p class="text-xs text-teal-600 font-medium mt-0.5 tabular-nums">較 11/07 再降 1.30 kg</p>
                 </div>
             </div>
-            
+
             <!-- 卡片 2: 目前 BMI -->
             <div class="glass-card p-6 flex items-center space-x-5 border-t-4 border-green-400">
                 <div class="p-4 bg-green-100 text-green-600 rounded-full shadow-inner">
@@ -63,10 +67,11 @@
                 </div>
                 <div>
                     <p class="text-sm text-slate-500 font-medium">目前 BMI</p>
-                    <p class="text-3xl font-bold text-slate-800">25.02</p>
+                    <p class="text-3xl font-bold text-slate-800 tabular-nums">24.59</p>
+                    <p class="text-xs text-slate-500 mt-0.5 tabular-nums">距正常 &lt;24 (71.8kg) 剩 1.80 kg</p>
                 </div>
             </div>
-            
+
             <!-- 卡片 3: 累計減去 -->
             <div class="glass-card p-6 flex items-center space-x-5 border-t-4 border-orange-400">
                 <div class="p-4 bg-orange-100 text-orange-500 rounded-full shadow-inner">
@@ -74,10 +79,11 @@
                 </div>
                 <div>
                     <p class="text-sm text-slate-500 font-medium">總計已減去</p>
-                    <p class="text-3xl font-bold text-slate-800">7.1 <span class="text-lg text-slate-400 font-normal">kg</span></p>
+                    <p class="text-3xl font-bold text-slate-800 tabular-nums">8.40 <span class="text-lg text-slate-400 font-normal">kg</span></p>
+                    <p class="text-xs text-slate-500 mt-0.5 tabular-nums">初始 82.0 kg → 73.60 kg</p>
                 </div>
             </div>
-            
+
             <!-- 卡片 4: 距離目標 -->
             <div class="glass-card p-6 flex items-center space-x-5 border-t-4 border-purple-400">
                 <div class="p-4 bg-purple-100 text-purple-600 rounded-full shadow-inner">
@@ -85,18 +91,23 @@
                 </div>
                 <div>
                     <p class="text-sm text-slate-500 font-medium">距離 69.0kg 目標</p>
-                    <p class="text-3xl font-bold text-slate-800">5.9 <span class="text-lg text-slate-400 font-normal">kg</span></p>
+                    <p class="text-3xl font-bold text-slate-800 tabular-nums">4.60 <span class="text-lg text-slate-400 font-normal">kg</span></p>
+                    <p class="text-xs text-purple-600 font-medium mt-0.5 tabular-nums">目標達成率 64.6%</p>
                 </div>
             </div>
         </div>
 
         <!-- 曲線圖與策略區塊 -->
         <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
-            
+
             <!-- 體重趨勢圖 (佔據 2 欄) -->
             <div class="glass-card p-6 lg:col-span-2">
-                <div class="flex justify-between items-center mb-4">
+                <div class="flex flex-wrap justify-between items-center gap-2 mb-4">
                     <h2 class="text-xl font-bold text-slate-700"><i class="fa-solid fa-chart-line text-teal-500 mr-2"></i>體重下降趨勢圖</h2>
+                    <div class="inline-flex rounded-lg bg-slate-100 p-1 text-xs font-medium">
+                        <button id="btnDailyWeight" class="px-3 py-1 rounded-md bg-teal-600 text-white transition">每日紀錄</button>
+                        <button id="btnWeeklyWeight" class="px-3 py-1 rounded-md text-slate-600 hover:text-slate-900 transition">每週進度</button>
+                    </div>
                 </div>
                 <div class="relative h-72 w-full">
                     <canvas id="weightChart"></canvas>
@@ -126,166 +137,286 @@
                         </li>
                     </ul>
                 </div>
-                
+
                 <div class="mt-6 bg-teal-50 p-4 rounded-lg border border-teal-100">
-                    <h3 class="text-sm text-teal-800 font-bold mb-2"><i class="fa-solid fa-bolt mr-1"></i> 腿部視覺改善核心策略</h3>
+                    <h3 class="text-sm text-teal-800 font-bold mb-2"><i class="fa-solid fa-bolt mr-1"></i> 11/25 最新階段建議</h3>
                     <ul class="text-xs text-slate-600 space-y-2 list-disc pl-4 marker:text-teal-400">
-                        <li><b>跑步：</b> 提高步頻，專注大腿後側與臀部發力拉動。</li>
-                        <li><b>重訓：</b> 每週 2-3 次啞鈴 RDL，強化後側鏈。</li>
-                        <li><b>放鬆：</b> 每日睡前靠牆抬腿 15 分，跑後務必滾筒推開大腿外/前側。</li>
+                        <li><b>體重突破：</b>正式進入 73kg 區間（73.60 kg），距健康 BMI&lt;24 僅剩 1.8 kg。</li>
+                        <li><b>蛋白質補充：</b>11/25 早午餐已攝取 49g，晚餐建議補充 60~75g 優質蛋白（無糖豆漿、魚肉、豆腐或雞胸肉）。</li>
+                        <li><b>運動維持：</b>持續慢跑 40-50 分、啞鈴 RDL 與睡前伸展抬腿。</li>
                     </ul>
                 </div>
             </div>
         </div>
 
-        <!-- 歷史紀錄表格 -->
+        <!-- 每日熱量與蛋白質攝取分析圖 -->
+        <div class="glass-card p-6">
+            <div class="flex flex-wrap justify-between items-center gap-2 mb-4">
+                <div>
+                    <h2 class="text-xl font-bold text-slate-700"><i class="fa-solid fa-utensils text-teal-500 mr-2"></i>每日熱量與蛋白質攝取分析圖</h2>
+                    <p class="text-xs text-slate-500 mt-1">目標熱量 1,550~1,650 kcal ｜ 目標蛋白質 110~125g</p>
+                </div>
+                <div class="inline-flex rounded-lg bg-slate-100 p-1 text-xs font-medium">
+                    <button id="btnCalories" class="px-3 py-1 rounded-md bg-teal-600 text-white transition">熱量 (kcal)</button>
+                    <button id="btnProtein" class="px-3 py-1 rounded-md text-slate-600 hover:text-slate-900 transition">蛋白質 (g)</button>
+                </div>
+            </div>
+            <div class="relative h-64 w-full">
+                <canvas id="nutritionChart"></canvas>
+            </div>
+        </div>
+
+        <!-- 每週體重與體態紀錄總表 -->
         <div class="glass-card p-6 overflow-hidden">
-            <h2 class="text-xl font-bold mb-4 text-slate-700"><i class="fa-solid fa-list-ul text-teal-500 mr-2"></i>近期重要里程碑與紀錄</h2>
+            <h2 class="text-xl font-bold mb-4 text-slate-700"><i class="fa-solid fa-calendar-week text-teal-500 mr-2"></i>每週體重與體態紀錄總表</h2>
             <div class="overflow-x-auto">
                 <table class="w-full text-left border-collapse">
                     <thead>
-                        <tr class="bg-slate-100 text-slate-600 text-sm uppercase tracking-wider">
-                            <th class="p-3 rounded-tl-lg font-semibold">日期</th>
-                            <th class="p-3 font-semibold">體重 (kg)</th>
-                            <th class="p-3 font-semibold">BMI</th>
-                            <th class="p-3 rounded-tr-lg font-semibold">備註與運動項目</th>
+                        <tr class="bg-slate-100 text-slate-600 text-sm tracking-wider">
+                            <th class="p-3 rounded-tl-lg font-semibold whitespace-nowrap">週次</th>
+                            <th class="p-3 font-semibold whitespace-nowrap">日期區間</th>
+                            <th class="p-3 font-semibold whitespace-nowrap text-right">體重 (kg)</th>
+                            <th class="p-3 font-semibold whitespace-nowrap text-right">週變化 (kg)</th>
+                            <th class="p-3 font-semibold whitespace-nowrap text-center">睡眠</th>
+                            <th class="p-3 font-semibold whitespace-nowrap">運動執行紀錄</th>
+                            <th class="p-3 rounded-tr-lg font-semibold">備註與體態心得</th>
                         </tr>
                     </thead>
-                    <tbody class="text-slate-700 text-sm">
-                        <tr class="border-b border-slate-100 hover:bg-slate-50 transition-colors bg-teal-50/30">
-                            <td class="p-3 font-bold text-teal-700">11/07</td>
-                            <td class="p-3 font-bold text-teal-700">74.90</td>
-                            <td class="p-3 text-teal-700">25.02</td>
-                            <td class="p-3 font-medium text-teal-800">🎉 重大突破 74kg 區間！累計減重達 7.1kg</td>
+                    <tbody id="weeklyTableBody" class="text-slate-700 text-sm"></tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- 每日飲食熱量與體重明細表 -->
+        <div class="glass-card p-6 overflow-hidden">
+            <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 mb-4">
+                <h2 class="text-xl font-bold text-slate-700"><i class="fa-solid fa-list-ul text-teal-500 mr-2"></i>每日飲食、熱量與體重明細表</h2>
+                <input id="logSearch" type="text" placeholder="搜尋日期或食物 (例如 11/25、雞胸肉)..."
+                    class="w-full sm:w-64 px-3 py-2 rounded-lg text-sm bg-slate-50 border border-slate-200 text-slate-700 focus:outline-none focus:border-teal-500">
+            </div>
+            <div class="overflow-x-auto">
+                <table class="w-full text-left border-collapse">
+                    <thead>
+                        <tr class="bg-slate-100 text-slate-600 text-sm tracking-wider">
+                            <th class="p-3 rounded-tl-lg font-semibold whitespace-nowrap">日期</th>
+                            <th class="p-3 font-semibold whitespace-nowrap text-right">體重 (kg)</th>
+                            <th class="p-3 font-semibold whitespace-nowrap text-right">熱量 (kcal)</th>
+                            <th class="p-3 font-semibold whitespace-nowrap text-right">蛋白質 (g)</th>
+                            <th class="p-3 font-semibold min-w-[260px]">三餐飲食內容</th>
+                            <th class="p-3 rounded-tr-lg font-semibold min-w-[180px]">運動 / 評估建議</th>
                         </tr>
-                        <tr class="border-b border-slate-100 hover:bg-slate-50 transition-colors">
-                            <td class="p-3 font-medium">11/01</td>
-                            <td class="p-3 text-slate-600">76.30</td>
-                            <td class="p-3 text-slate-400">25.49</td>
-                            <td class="p-3 text-slate-500">慢跑/RDL/大腿伸展與抬腿</td>
-                        </tr>
-                        <tr class="border-b border-slate-100 hover:bg-slate-50 transition-colors">
-                            <td class="p-3 font-medium">10/21</td>
-                            <td class="p-3 text-slate-600">76.65</td>
-                            <td class="p-3 text-slate-400">25.61</td>
-                            <td class="p-3 text-slate-500">核心/腿部/有氧 (大幅下降階段)</td>
-                        </tr>
-                        <tr class="border-b border-slate-100 hover:bg-slate-50 transition-colors">
-                            <td class="p-3 font-medium">10/19</td>
-                            <td class="p-3 text-slate-600">77.85</td>
-                            <td class="p-3 text-slate-400">26.01</td>
-                            <td class="p-3 text-slate-500">飲食：生乳燒、棒棒腿 (總熱量 880 kcal)</td>
-                        </tr>
-                        <tr class="hover:bg-slate-50 transition-colors">
-                            <td class="p-3 font-medium">10/18</td>
-                            <td class="p-3 text-slate-600">78.10</td>
-                            <td class="p-3 text-slate-400">26.10</td>
-                            <td class="p-3 text-slate-500">晚間運動/核心/腿部肌力</td>
-                        </tr>
-                    </tbody>
+                    </thead>
+                    <tbody id="dailyTableBody" class="text-slate-700 text-sm"></tbody>
                 </table>
             </div>
         </div>
     </div>
 
-    <!-- Chart.js 繪圖腳本 -->
+    <!-- Chart.js 與表格渲染腳本 -->
     <script>
-        const ctx = document.getElementById('weightChart').getContext('2d');
-        
-        // 漸層背景設定 (讓折線圖下方有漸層美感)
-        const gradientFill = ctx.createLinearGradient(0, 0, 0, 300);
-        gradientFill.addColorStop(0, 'rgba(13, 148, 136, 0.4)'); // Teal 600 高透明度
+        const dailyRecords = [
+            { date: '起始', weight: 82.00, kcal: null, protein: null, meals: '初始體重基準 (BMI 27.4)', note: '目標 12/12 達 69.0 kg' },
+            { date: '10/04', weight: 79.30, kcal: 1375, protein: 58.3, meals: '早：蛋黃酥1顆｜午：蘋果+水煮蛋+無糖高纖豆漿450ml｜晚：泡麵1碗+肉片', note: '首日紀錄' },
+            { date: '10/05', weight: 79.10, kcal: 1330, protein: 68.5, meals: '早：蛋黃酥1顆｜午：茶葉蛋+蘋果+厚濃豆漿｜晚：板豆腐2塊+雞棒棒腿2隻+玉米｜點心：冰淇淋半杯', note: '跳舞運動1小時 + 大腿伸展10分鐘' },
+            { date: '10/06', weight: 78.50, kcal: 2200, protein: null, meals: '早：鳳梨酥1.5顆｜午：板豆腐2+雞棒棒腿2+玉米+蘋果｜晚：椒麻雞拌麵+半個雞排+泰奶', note: '熱量較高，需注意外食油脂' },
+            { date: '10/07', weight: null,  kcal: 1045, protein: 37.0, meals: '早：手工蛋捲1支｜午：蘋果+水煮蛋｜晚：自煮小卷麵+澎湃豆花', note: '當日無體重紀錄' },
+            { date: '10/08', weight: 79.30, kcal: 1180, protein: 56.0, meals: '早：手工蛋捲1條｜午：自煮小卷麵｜晚：酪梨青醬鮭魚能量碗', note: '體重微幅波動' },
+            { date: '10/09', weight: 78.50, kcal: 810,  protein: 70.0, meals: '早：水煮蛋1顆｜午：蘋果+卜蜂雞胸+厚濃黑豆奶｜晚：栗子南瓜+氣炸板豆腐', note: '高蛋白原型食物組合' },
+            { date: '10/10', weight: 78.15, kcal: 885,  protein: 54.0, meals: '早：閃電輕奶昔1包｜午：蘋果+水煮蛋+豆漿375ml｜晚：炒花椰菜+蝦仁烘蛋', note: 'W1 結束降至 78.15 kg' },
+            { date: '10/13', weight: 78.30, kcal: 1115, protein: 65.0, meals: '早：葡萄乾麵包｜午：蘋果+水煮蛋｜晚：羊肉湯+牛排+高麗菜', note: '晚餐蛋白質豐富' },
+            { date: '10/15', weight: 77.80, kcal: 1180, protein: 81.0, meals: '早：饅頭1顆｜午：魚肉+嫩豆腐+玉米筍+杏鮑菇+皎白筍｜晚：牛小排+雞腿肉丁+高麗菜', note: '首度跌破 78 kg' },
+            { date: '10/18', weight: 78.10, kcal: 1230, protein: 73.0, meals: '早：生乳燒2顆｜午：鮭魚肉+炸香菇+花椰菜｜晚：白蘿蔔+杏鮑菇+棒棒腿3支', note: 'W2 穩定維持 78.10 kg' },
+            { date: '10/19', weight: 77.85, kcal: 880,  protein: 34.0, meals: '早：生乳燒4顆｜午：白蘿蔔+杏鮑菇+棒棒腿2隻', note: '僅記錄早午餐' },
+            { date: '10/21', weight: 76.65, kcal: null, protein: null, meals: '未記錄餐點明細', note: 'W3 重大突破，直落至 76.65 kg' },
+            { date: '11/01', weight: 76.30, kcal: null, protein: null, meals: '未記錄餐點明細', note: 'W4 穩健降至 76.30 kg (BMI 25.49)' },
+            { date: '11/07', weight: 74.90, kcal: 0,    protein: 0,    meals: '當日暫無餐點紀錄', note: '慢跑40-50分、啞鈴RDL、抬腿；突破74kg區間 (BMI 25.02)' },
+            { date: '11/24', weight: null,  kcal: 290,  protein: 44.0, meals: '晚：雞胸肉+秋葵+水煮蛋', note: '純粹高蛋白低脂晚餐' },
+            { date: '11/25', weight: 73.60, kcal: 510,  protein: 49.0, meals: '早：草莓優格+蘋果｜午：雞胸肉+秋葵+水煮蛋｜晚：暫無', note: '🎉 突破 73kg 區間 (BMI 24.59)！累計減重 8.4 kg' }
+        ];
+
+        const weeklyRecords = [
+            { week: '起始', range: '—', weight: 82.00, diff: null, sleep: '7小時', exercise: '—', note: '初始紀錄' },
+            { week: 'W1', range: '10/04 - 10/10', weight: 78.15, diff: -3.85, sleep: '7小時', exercise: '晚間有氧 / 跳舞 / 伸展', note: '體重顯著降至 78.15kg，輕奶昔與原型食物搭配效果顯著。' },
+            { week: 'W2', range: '10/11 - 10/18', weight: 78.10, diff: -0.05, sleep: '7小時', exercise: '晚間運動 / 核心 / 腿部肌力', note: '體重穩定維持在 77.8~78.1kg 低檔區間。' },
+            { week: 'W3', range: '10/19 - 10/21', weight: 76.65, diff: -1.45, sleep: '7小時', exercise: '核心 / 腿部 / 有氧', note: '重大突破！體重直落降至 76.65kg！' },
+            { week: 'W4', range: '10/22 - 11/01', weight: 76.30, diff: -0.35, sleep: '7小時', exercise: '慢跑 / RDL / 伸展', note: '穩健降至 76.30kg，BMI 降至 25.49。' },
+            { week: 'W5', range: '11/02 - 11/07', weight: 74.90, diff: -1.40, sleep: '7小時', exercise: '慢跑 / RDL / 抬腿放鬆', note: '重大里程碑！突破進入 74kg 區間 (74.90kg)，累計減重 7.1kg，BMI 降至 25.02！' },
+            { week: 'W8', range: '11/24 - 11/25', weight: 73.60, diff: -1.30, sleep: '7小時', exercise: '待更新', note: '🎉 突破進入 73kg 區間 (73.60kg)，累計減重 8.4kg，BMI 降至 24.59！' }
+        ];
+
+        // 渲染每週總表
+        document.getElementById('weeklyTableBody').innerHTML = weeklyRecords.slice().reverse().map((r, idx) => `
+            <tr class="border-b border-slate-100 hover:bg-slate-50 transition-colors ${idx === 0 ? 'bg-teal-50/40' : ''}">
+                <td class="p-3 font-bold ${idx === 0 ? 'text-teal-700' : 'text-slate-700'} whitespace-nowrap">${r.week}</td>
+                <td class="p-3 text-slate-500 whitespace-nowrap tabular-nums">${r.range}</td>
+                <td class="p-3 font-bold text-right whitespace-nowrap tabular-nums ${idx === 0 ? 'text-teal-700' : ''}">${r.weight.toFixed(2)}</td>
+                <td class="p-3 text-right whitespace-nowrap tabular-nums font-semibold ${r.diff !== null ? 'text-emerald-600' : 'text-slate-400'}">${r.diff !== null ? r.diff.toFixed(2) : '—'}</td>
+                <td class="p-3 text-center text-slate-500 whitespace-nowrap">${r.sleep}</td>
+                <td class="p-3 text-slate-600 whitespace-nowrap">${r.exercise}</td>
+                <td class="p-3 text-slate-600">${r.note}</td>
+            </tr>
+        `).join('');
+
+        // 渲染每日明細表
+        function renderDailyTable(filter = '') {
+            const q = filter.trim().toLowerCase();
+            const list = dailyRecords.slice().reverse().filter(r =>
+                !q || r.date.toLowerCase().includes(q) || r.meals.toLowerCase().includes(q) || r.note.toLowerCase().includes(q)
+            );
+            document.getElementById('dailyTableBody').innerHTML = list.map((r, idx) => `
+                <tr class="border-b border-slate-100 hover:bg-slate-50 transition-colors ${idx === 0 && !q ? 'bg-teal-50/30' : ''}">
+                    <td class="p-3 font-bold whitespace-nowrap tabular-nums ${idx === 0 && !q ? 'text-teal-700' : 'text-slate-700'}">${r.date}</td>
+                    <td class="p-3 text-right font-bold whitespace-nowrap tabular-nums">${r.weight !== null ? r.weight.toFixed(2) : '<span class="text-slate-400 font-normal">—</span>'}</td>
+                    <td class="p-3 text-right whitespace-nowrap tabular-nums">${r.kcal !== null ? r.kcal.toLocaleString() : '<span class="text-slate-400">—</span>'}</td>
+                    <td class="p-3 text-right whitespace-nowrap tabular-nums">${r.protein !== null ? r.protein.toFixed(1) : '<span class="text-slate-400">—</span>'}</td>
+                    <td class="p-3 text-slate-600 text-xs leading-relaxed">${r.meals}</td>
+                    <td class="p-3 text-slate-500 text-xs leading-relaxed">${r.note}</td>
+                </tr>
+            `).join('');
+        }
+        renderDailyTable();
+        document.getElementById('logSearch').addEventListener('input', e => renderDailyTable(e.target.value));
+
+        // 體重趨勢圖 (Chart.js)
+        const wCtx = document.getElementById('weightChart').getContext('2d');
+        const gradientFill = wCtx.createLinearGradient(0, 0, 0, 300);
+        gradientFill.addColorStop(0, 'rgba(13, 148, 136, 0.4)');
         gradientFill.addColorStop(1, 'rgba(13, 148, 136, 0.0)');
 
-        const data = {
-            labels: ['10/04', '10/06', '10/08', '10/09', '10/10', '10/13', '10/15', '10/18', '10/19', '10/21', '11/01', '11/07'],
-            datasets: [
-                {
-                    label: '實際體重 (kg)',
-                    data: [79.3, 78.5, 79.3, 78.5, 78.15, 78.3, 77.8, 78.1, 77.85, 76.65, 76.3, 74.9],
-                    borderColor: '#0d9488', // Tailwind teal-600
-                    backgroundColor: gradientFill,
-                    borderWidth: 3,
-                    fill: true,
-                    tension: 0.4, // 讓曲線平滑
-                    pointBackgroundColor: '#ffffff',
-                    pointBorderColor: '#0d9488',
-                    pointBorderWidth: 2,
-                    pointRadius: 5,
-                    pointHoverRadius: 7,
-                    pointHoverBackgroundColor: '#0d9488',
-                    pointHoverBorderColor: '#ffffff'
-                },
-                {
-                    label: '目標體重 (69.0 kg)',
-                    data: Array(12).fill(69),
-                    borderColor: '#f43f5e', // Tailwind rose-500
-                    borderWidth: 2,
-                    borderDash: [5, 5],
-                    fill: false,
-                    pointRadius: 0,
-                    pointHoverRadius: 0
-                }
-            ]
-        };
+        let weightChartInstance = null;
+        function renderWeightChart(mode = 'daily') {
+            const pts = mode === 'daily'
+                ? dailyRecords.filter(d => d.weight !== null).map(d => ({ label: d.date, val: d.weight }))
+                : weeklyRecords.map(w => ({ label: w.week, val: w.weight }));
 
-        new Chart(ctx, {
-            type: 'line',
-            data: data,
-            options: {
-                responsive: true,
-                maintainAspectRatio: false,
-                interaction: {
-                    mode: 'index',
-                    intersect: false,
-                },
-                plugins: {
-                    legend: { 
-                        position: 'top',
-                        labels: { 
-                            font: { family: 'Segoe UI', size: 13, weight: '500' },
-                            usePointStyle: true,
-                            boxWidth: 8
-                        }
-                    },
-                    tooltip: {
-                        backgroundColor: 'rgba(15, 23, 42, 0.9)', // slate-900
-                        titleFont: { size: 14, family: 'Segoe UI' },
-                        bodyFont: { size: 13, family: 'Segoe UI' },
-                        padding: 12,
-                        cornerRadius: 8,
-                        displayColors: false
-                    }
-                },
-                scales: {
-                    y: {
-                        min: 65,
-                        max: 85,
-                        grid: { 
-                            color: '#e2e8f0', // slate-200
-                            borderDash: [5, 5]
+            if (weightChartInstance) weightChartInstance.destroy();
+            weightChartInstance = new Chart(wCtx, {
+                type: 'line',
+                data: {
+                    labels: pts.map(p => p.label),
+                    datasets: [
+                        {
+                            label: '實際體重 (kg)',
+                            data: pts.map(p => p.val),
+                            borderColor: '#0d9488',
+                            backgroundColor: gradientFill,
+                            borderWidth: 3,
+                            fill: true,
+                            tension: 0.35,
+                            pointBackgroundColor: '#ffffff',
+                            pointBorderColor: '#0d9488',
+                            pointBorderWidth: 2,
+                            pointRadius: 5,
+                            pointHoverRadius: 7
                         },
-                        ticks: { 
-                            color: '#64748b', // slate-500
-                            font: { size: 12 }
+                        {
+                            label: '健康 BMI 24 (71.8 kg)',
+                            data: Array(pts.length).fill(71.8),
+                            borderColor: '#f59e0b',
+                            borderWidth: 1.5,
+                            borderDash: [4, 4],
+                            fill: false,
+                            pointRadius: 0
                         },
-                        title: { 
-                            display: true, 
-                            text: '體重 (公斤)', 
-                            color: '#94a3b8',
-                            font: { size: 13, weight: 'bold' }
+                        {
+                            label: '目標體重 (69.0 kg)',
+                            data: Array(pts.length).fill(69.0),
+                            borderColor: '#f43f5e',
+                            borderWidth: 2,
+                            borderDash: [5, 5],
+                            fill: false,
+                            pointRadius: 0
                         }
+                    ]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    interaction: { mode: 'index', intersect: false },
+                    plugins: {
+                        legend: { position: 'top', labels: { usePointStyle: true, boxWidth: 8 } },
+                        tooltip: { backgroundColor: 'rgba(15, 23, 42, 0.9)', padding: 12, cornerRadius: 8 }
                     },
-                    x: {
-                        grid: { display: false },
-                        ticks: { 
-                            color: '#64748b',
-                            font: { size: 12 }
-                        }
+                    scales: {
+                        y: { min: 66, max: 84, grid: { color: '#e2e8f0' }, title: { display: true, text: '體重 (公斤)', color: '#64748b' } },
+                        x: { grid: { display: false } }
                     }
                 }
-            }
-        });
+            });
+        }
+        renderWeightChart('daily');
+
+        // 熱量與蛋白質長條圖 (Chart.js)
+        const nCtx = document.getElementById('nutritionChart').getContext('2d');
+        let nutritionChartInstance = null;
+        function renderNutritionChart(mode = 'calories') {
+            const isCal = mode === 'calories';
+            const pts = dailyRecords.filter(d => isCal ? (d.kcal !== null && d.kcal > 0) : (d.protein !== null && d.protein > 0));
+            if (nutritionChartInstance) nutritionChartInstance.destroy();
+            nutritionChartInstance = new Chart(nCtx, {
+                type: 'bar',
+                data: {
+                    labels: pts.map(p => p.date),
+                    datasets: [
+                        {
+                            label: isCal ? '每日熱量攝取 (kcal)' : '每日蛋白質攝取 (g)',
+                            data: pts.map(p => isCal ? p.kcal : p.protein),
+                            backgroundColor: isCal
+                                ? pts.map(p => p.kcal > 1800 ? 'rgba(245, 158, 11, 0.85)' : 'rgba(13, 148, 136, 0.85)')
+                                : 'rgba(99, 102, 241, 0.85)',
+                            borderRadius: 6
+                        },
+                        {
+                            type: 'line',
+                            label: isCal ? '目標上限 (1,650 kcal)' : '目標下限 (110 g)',
+                            data: Array(pts.length).fill(isCal ? 1650 : 110),
+                            borderColor: '#10b981',
+                            borderWidth: 2,
+                            borderDash: [5, 5],
+                            pointRadius: 0,
+                            fill: false
+                        }
+                    ]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: { position: 'top', labels: { usePointStyle: true, boxWidth: 8 } },
+                        tooltip: { backgroundColor: 'rgba(15, 23, 42, 0.9)', padding: 10, cornerRadius: 8 }
+                    },
+                    scales: {
+                        y: { beginAtZero: true, max: isCal ? 2400 : 140, grid: { color: '#e2e8f0' } },
+                        x: { grid: { display: false } }
+                    }
+                }
+            });
+        }
+        renderNutritionChart('calories');
+
+        // 切換按鈕事件
+        const activeBtn = 'px-3 py-1 rounded-md bg-teal-600 text-white transition';
+        const inactiveBtn = 'px-3 py-1 rounded-md text-slate-600 hover:text-slate-900 transition';
+        document.getElementById('btnDailyWeight').onclick = () => {
+            document.getElementById('btnDailyWeight').className = activeBtn;
+            document.getElementById('btnWeeklyWeight').className = inactiveBtn;
+            renderWeightChart('daily');
+        };
+        document.getElementById('btnWeeklyWeight').onclick = () => {
+            document.getElementById('btnWeeklyWeight').className = activeBtn;
+            document.getElementById('btnDailyWeight').className = inactiveBtn;
+            renderWeightChart('weekly');
+        };
+        document.getElementById('btnCalories').onclick = () => {
+            document.getElementById('btnCalories').className = activeBtn;
+            document.getElementById('btnProtein').className = inactiveBtn;
+            renderNutritionChart('calories');
+        };
+        document.getElementById('btnProtein').onclick = () => {
+            document.getElementById('btnProtein').className = activeBtn;
+            document.getElementById('btnCalories').className = inactiveBtn;
+            renderNutritionChart('protein');
+        };
     </script>
 </body>
 </html>
